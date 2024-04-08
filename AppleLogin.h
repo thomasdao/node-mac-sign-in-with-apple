@@ -7,5 +7,5 @@ typedef void (^ErrorBlock)(id);
   @property (nonatomic, copy) SuccessBlock successBlock;
   @property (nonatomic, copy) ErrorBlock errorBlock;
  - (instancetype) initWithWindow: (NSWindow*) window;
- - (void)initiateLoginProcess;
+ - (void)initiateLoginProcess:(void (^)(NSDictionary<NSString *, NSString *> *result))completionHandler errorHandler:(void (^)(NSError *error))errorHandler;
 @end

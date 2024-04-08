@@ -30,12 +30,12 @@
   ],
   "dependencies": {
     "bindings": "^1.5.0",
-    "node-addon-api": "^3.0.2"
+    "node-addon-api": "^8.0.0"
   },
   "devDependencies": {
-    "clang-format": "^1.4.0",
-    "node-gyp": "^7.1.2",
-    "prettier": "^2.0.4"
+    "clang-format": "^1.8.0",
+    "node-gyp": "^10.1.0",
+    "prettier": "^3.2.5"
   },
   "scripts": {
     "build": "MACOSX_DEPLOYMENT_TARGET=10.15 node-gyp build",
@@ -63,5 +63,6 @@
     "node",
     "electron",
     "native"
-  ]
+  ],
+  "os": ["darwin"]
 }
