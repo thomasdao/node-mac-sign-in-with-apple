@@ -35,7 +35,7 @@
       "OTHER_LDFLAGS": [
         "-arch x86_64",
         "-arch arm64",
-        "-framework CoreFoundation -framework AppKit -framework AuthenticationServices -framework CommonCrypto"
+        "-framework CoreFoundation -framework AppKit -framework AuthenticationServices -framework Security"
       ],
       "OTHER_CPLUSPLUSFLAGS": ["-std=c++14", "-stdlib=libc++", "-mmacosx-version-min=10.15"]
     }
