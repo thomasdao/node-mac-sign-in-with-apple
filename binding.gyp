@@ -34,7 +34,11 @@
         "-framework AuthenticationServices",
         "-framework Security"
       ],
-      "OTHER_CPLUSPLUSFLAGS": ["-std=c++14", "-stdlib=libc++", "-mmacosx-version-min=10.15"]
+      "OTHER_CPLUSPLUSFLAGS": [
+        "-std=c++14",
+        "-stdlib=libc++",
+        "-mmacosx-version-min=10.15"
+      ]
     }
   }]
 }
