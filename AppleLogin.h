@@ -1,4 +1,5 @@
 #import <AuthenticationServices/AuthenticationServices.h>
+#import <CommonCrypto/CommonDigest.h>
 
 typedef void (^SuccessBlock)(id);
 typedef void (^ErrorBlock)(id);
