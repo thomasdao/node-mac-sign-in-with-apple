@@ -14,11 +14,16 @@
     return self;
   }
 
-  -(NSString*)sha256HashFor:(NSString*)input {
-    NSData* data = [input dataUsingEncoding:NSUTF8StringEncoding];
-    NSMutableData *sha256Data = [NSMutableData dataWithLength:CC_SHA256_DIGEST_LENGTH];
-    CC_SHA256([data bytes], (CC_LONG)[data length], [sha256Data mutableBytes]);
-    return [sha256Data base64EncodedStringWithOptions:0];
+  -(NSString*)getSha256:(NSString*)input {
+    const char* str = [input UTF8String];
+    unsigned char result[CC_SHA256_DIGEST_LENGTH];
+    CC_SHA256(str, strlen(str), result);
+
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH*2];
+    for (int i = 0; i<CC_SHA256_DIGEST_LENGTH; i++) {
+      [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
   }
 
   - (void)initiateLoginProcess:(void (^)(NSDictionary<NSString *, NSString *> *result))completionHandler errorHandler:(void (^)(NSError *error))errorHandler {
@@ -31,7 +36,7 @@
     
     NSUUID *uuid = [NSUUID UUID];
     self.nonce = [uuid UUIDString];
-    request.nonce = [self sha256HashFor:self.nonce];
+    request.nonce = [self getSha256:self.nonce];
 
     ASAuthorizationController *authorizationController = [[ASAuthorizationController alloc]initWithAuthorizationRequests:@[request]];
     authorizationController.delegate = self;
