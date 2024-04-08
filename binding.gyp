@@ -28,14 +28,7 @@
       # Same as https://github.com/nodejs/node/blob/v10.0.0/common.gypi#L416
       "MACOSX_DEPLOYMENT_TARGET": "10.15",
 
-      # Build universal binary to support M1 (Apple silicon)
-      "OTHER_CFLAGS": [
-        "-arch x86_64",
-        "-arch arm64"
-      ],
       "OTHER_LDFLAGS": [
-        "-arch x86_64",
-        "-arch arm64",
         "-framework CoreFoundation",
         "-framework AppKit",
         "-framework AuthenticationServices",
