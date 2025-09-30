@@ -3,6 +3,7 @@
 
 #include <map>
 #include <napi.h>
+#import <StoreKit/StoreKit.h>
 
 using namespace Napi;
 
@@ -79,10 +80,19 @@ Value SignInWithApple( const CallbackInfo& info )
   return Napi::Boolean::New(env, true);
 }
 
-Object Init(Env env, Object exports) {
-  exports.Set(String::New(env, "signInWithApple"),
-              Function::New(env, SignInWithApple));
+Napi::Value RequestReview(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
 
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [SKStoreReviewController requestReview];
+    });
+
+    return env.Undefined();
+}
+
+Object Init(Env env, Object exports) {
+  exports.Set(String::New(env, "signInWithApple"), Function::New(env, SignInWithApple));
+  exports.Set("requestReview", Napi::Function::New(env, RequestReview));
   return exports;
 }
 

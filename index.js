@@ -1,4 +1,4 @@
-const appleLogin = process.platform === 'darwin' ? require('bindings')('main.node') : undefined;
+const nativeModule = process.platform === 'darwin' ? require('bindings')('main.node') : undefined;
 
 const signInWithApple = async (mainWindow) => {
   if (process.platform !== 'darwin') {
@@ -6,10 +6,12 @@ const signInWithApple = async (mainWindow) => {
   }
 
   return new Promise((resolve, reject) => {
-    appleLogin.signInWithApple((result) => {
+    nativeModule.signInWithApple((result) => {
       if (result.is_error === 'true') {
         delete result.is_error;
-        reject(result);
+        const error = new Error(result.message)
+        error.code = result.code
+        reject(error);
         return;
       }
 
@@ -19,6 +21,14 @@ const signInWithApple = async (mainWindow) => {
   })
 };
 
+function requestReview () {
+  if (process.platform !== 'darwin') {
+    throw new Error('This module only works on macOS')
+  }
+  nativeModule.requestReview()
+}
+
 module.exports = {
   signInWithApple,
+  requestReview
 };
